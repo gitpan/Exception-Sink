@@ -16,7 +16,7 @@ our @ISA         = qw( Exporter );
 our @EXPORT      = qw( sink dive surface surface2 boom );
 our @EXPORT_OK   = qw( $DEBUG_SINK );
 our %EXPORT_TAGS = ( 'none' => [ ] );
-our $VERSION     = '3.01';
+our $VERSION     = '3.02';
 use strict;
 
 our $DEBUG_SINK = 0;
@@ -105,7 +105,7 @@ sub surface(@)
     print STDERR "surface: non-ship, resink: $@\n" if $DEBUG_SINK;
     # re-sink, non-ship
     my $AT=$@;
-    if( $AT =~ /^[A-Z0-9]+\:/ )
+    if( $AT =~ /^[A-Z0-9_]+\:/ )
       {
       eval { sink $AT; }
       }
@@ -128,7 +128,8 @@ sub surface(@)
 
 sub surface2(@)
 {
-  dive() unless surface(@_);
+  return 1 if surface(@_);
+  dive();
   return 0;
 }
 
@@ -239,7 +240,7 @@ Exception::Sink - general purpose compact exception handling.
   same as surface but will dive() if exception class has not been matched.
   i.e those are equal:
 
-  if( surface( ... ) ) { handle } or { dive }
+  if( surface( ... ) ) { handle } else { dive }
 
   handle if surface2( ... )
 

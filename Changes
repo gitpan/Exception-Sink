@@ -5,3 +5,7 @@ Revision history for Perl extension Exception::Sink.
     1. history lost, initial CPAN release
     2. added surface2()
 
+3.02  2010.12.01
+
+    1. docs typo
+    2. surface2() fix

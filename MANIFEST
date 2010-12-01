@@ -1,0 +1,7 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Exception-Sink.t
+lib/Exception/Sink.pm
+META.yml                                 Module meta-data (added by MakeMaker)

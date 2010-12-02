@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Exception-Sink
-version:            3.02
+version:            3.03
 abstract:           general purpose compact exception handling.
 author:
     - Vladi Belperchinov-Shabanski <cade@cpan.org>

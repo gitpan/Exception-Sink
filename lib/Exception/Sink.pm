@@ -16,7 +16,8 @@ our @ISA         = qw( Exporter );
 our @EXPORT      = qw( sink dive surface surface2 boom );
 our @EXPORT_OK   = qw( $DEBUG_SINK );
 our %EXPORT_TAGS = ( 'none' => [ ] );
-our $VERSION     = '3.02';
+our $VERSION     = '3.03';
+use Exception::Sink::Class;
 use strict;
 
 our $DEBUG_SINK = 0;
@@ -55,7 +56,7 @@ sub sink($)
 
   print STDERR "sink: $class ($f:$l)\n" if $DEBUG_SINK;
 
-  die {
+  die Exception::Sink::Class->new(
       'CLASS'   => $class,
       'ID'      => $id,
       'MSG'     => $msg,
@@ -63,7 +64,7 @@ sub sink($)
       'FILE'    => $f,
       'LINE'    => $l,
       'ORG'     => $org,
-      };
+      );
 }
 
 ##############################################################################

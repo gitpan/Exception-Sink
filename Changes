@@ -9,3 +9,8 @@ Revision history for Perl extension Exception::Sink.
 
     1. docs typo
     2. surface2() fix
+
+3.03 2010.12.02
+
+    1. added exception stringification
+

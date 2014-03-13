@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #  Exception::Sink
-#  (c) Vladi Belperchinov-Shabanski "Cade" 2006-2010
+#  (c) Vladi Belperchinov-Shabanski "Cade" 2006-2013
 #  <cade@bis.net> <cade@datamax.bg> <cade@cpan.org>
 #  http://cade.datamax.bg
 #
@@ -13,10 +13,21 @@
 package Exception::Sink;
 use Exporter;
 our @ISA         = qw( Exporter );
-our @EXPORT      = qw( sink dive surface surface2 boom );
-our @EXPORT_OK   = qw( $DEBUG_SINK );
+our @EXPORT      = qw( 
+                       sink 
+                       dive 
+                       surface 
+                       surface2 
+                       boom 
+                     );
+
+our @EXPORT_OK   = qw( 
+                       $DEBUG_SINK 
+                       get_stack_trace
+                     );
+                     
 our %EXPORT_TAGS = ( 'none' => [ ] );
-our $VERSION     = '3.03';
+our $VERSION     = '3.04';
 use Exception::Sink::Class;
 use strict;
 
@@ -145,16 +156,31 @@ sub boom($)
   my $msg = shift;
   chomp( $msg );
   $msg = "BOOM: [$$] $msg\n";
-  my @st = ( $msg );
-  my $i = 0;
-  while ( my ( $pack, $file, $line, $subname ) = caller($i++) )
-    {
-    push @st, "      [$$] $i: called from: ($file:$line) $pack::$subname\n";
-    }
-  #die( @st );
-  sink( join '', @st );
+  sink( join '', ( $msg, get_stack_array() ) );
 }
 
+sub get_stack_trace
+{
+  my @st;
+  my $i = 1; # skip get_stack_trace
+  my $ml;
+  while ( my ( $pack, $file, $line, $subname ) = caller($i++) )
+    {
+    my $l = length( "$pack::$subname" );
+    $ml = $l if $l > $ml;
+    }
+  my $i = 1; # skip get_stack_trace
+  while ( my ( $pack, $file, $line, $subname ) = caller($i++) )
+    {
+    my $ii = $i - 1;
+    my $l = length( "$pack::$subname" );
+    my $pad = ' ' x ( $ml - $l );
+    push @st, "      [$$] $ii: $pack::$subname $pad $file:$line\n";
+    }
+  
+  #die( @st );
+  return @st;
+}
 
 ##############################################################################
 1;
@@ -254,6 +280,13 @@ Exception::Sink - general purpose compact exception handling.
   special version of sink() it will always has class 'BOOM' and will has
   full stack trace with pid information added to the sink() description text.
 
+=head2 get_stack_trace()
+
+  this is utility function, which returns array with formatted stack trace
+  lines, containing package, function names, file with line number. it can
+  be called at any time, usually for debug purpose. it is not exported by
+  default!
+
 =head1 EXCEPTION STRUCTURE
 
   Executing this:
@@ -312,6 +345,12 @@ Exception::Sink - general purpose compact exception handling.
 
   (more docs)
 
+=head1 GITHUB REPOSITORY
+
+  git@github.com:cade-vs/perl-exception-sink.git
+  
+  git clone git://github.com/cade-vs/perl-exception-sink.git
+  
 =head1 AUTHOR
 
   Vladi Belperchinov-Shabanski "Cade"

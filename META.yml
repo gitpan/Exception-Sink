@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Exception-Sink
-version:            3.03
+version:            3.04
 abstract:           general purpose compact exception handling.
 author:
     - Vladi Belperchinov-Shabanski <cade@cpan.org>
@@ -15,7 +15,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.56
+generated_by:       ExtUtils::MakeMaker version 6.57_05
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

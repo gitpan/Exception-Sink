@@ -1,16 +1,20 @@
 Revision history for Perl extension Exception::Sink.
 
-3.01  2010.12.01
+3.04  2014.03.13
 
-    1. history lost, initial CPAN release
-    2. added surface2()
+    1. added get_stack_trace() function
+
+3.03  2010.12.02
+
+    1. added exception stringification
 
 3.02  2010.12.01
 
     1. docs typo
     2. surface2() fix
 
-3.03 2010.12.02
+3.01  2010.12.01
 
-    1. added exception stringification
+    1. history lost, initial CPAN release
+    2. added surface2()
 

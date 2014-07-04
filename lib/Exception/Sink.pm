@@ -27,7 +27,7 @@ our @EXPORT_OK   = qw(
                      );
                      
 our %EXPORT_TAGS = ( 'none' => [ ] );
-our $VERSION     = '3.04';
+our $VERSION     = '3.05';
 use Exception::Sink::Class;
 use strict;
 
@@ -156,7 +156,7 @@ sub boom($)
   my $msg = shift;
   chomp( $msg );
   $msg = "BOOM: [$$] $msg\n";
-  sink( join '', ( $msg, get_stack_array() ) );
+  sink( join '', ( $msg, get_stack_trace() ) );
 }
 
 sub get_stack_trace
